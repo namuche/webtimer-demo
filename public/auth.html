@@ -17,45 +17,47 @@
   <button id="signup">Sign Up</button>
   <p id="status" style="color: red; height: 20px;"></p>
 
-  <script type="module">
-    import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js/+esm';
+<script type="module">
+  // ✅ Reemplaza con tus datos de Supabase
+  const SUPABASE_URL = 'https://abc123.your-project.supabase.co';
+  const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...';
 
-    const supabase = createClient(
-      import.meta.env.VITE_SUPABASE_URL,
-      import.meta.env.VITE_SUPABASE_KEY
-    );
+  // ✅ Usa Skypack (recomendado)
+  import { createClient } from 'https://cdn.skypack.dev/@supabase/supabase-js';
 
-    document.getElementById('login').onclick = async () => {
-      const email = document.getElementById('email').value;
-      if (!email) return alert('Please enter email');
+  const supabase = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
-      const { error } = await supabase.auth.signInWithPassword({
-        email,
-        password: 'demo123'
-      });
+  document.getElementById('login').onclick = async () => {
+    const email = document.getElementById('email').value;
+    if (!email) return alert('Please enter email');
 
-      if (error) {
-        document.getElementById('status').textContent = error.message;
-      } else {
-        window.location.href = '/';
-      }
-    };
+    const { error } = await supabase.auth.signInWithPassword({
+      email,
+      password: 'demo123'
+    });
 
-    document.getElementById('signup').onclick = async () => {
-      const email = document.getElementById('email').value;
-      if (!email) return alert('Please enter email');
+    if (error) {
+      document.getElementById('status').textContent = error.message;
+    } else {
+      window.location.href = '/';
+    }
+  };
 
-      const { error } = await supabase.auth.signUp({
-        email,
-        password: 'demo123'
-      });
+  document.getElementById('signup').onclick = async () => {
+    const email = document.getElementById('email').value;
+    if (!email) return alert('Please enter email');
 
-      if (error) {
-        document.getElementById('status').textContent = error.message;
-      } else {
-        document.getElementById('status').textContent = '✅ Check your email!';
-      }
-    };
-  </script>
+    const { error } = await supabase.auth.signUp({
+      email,
+      password: 'demo123'
+    });
+
+    if (error) {
+      document.getElementById('status').textContent = error.message;
+    } else {
+      document.getElementById('status').textContent = '✅ Check your email!';
+    }
+  };
+</script>
 </body>
 </html>
