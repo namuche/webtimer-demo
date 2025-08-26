@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>WebTimer Login</title>
+  <style>
+    body { font-family: Arial, sans-serif; padding: 40px; text-align: center; }
+    input, button { padding: 10px; margin: 10px 0; }
+    button { background: #0055ff; color: white; border: none; cursor: pointer; }
+  </style>
+</head>
+<body>
+  <h2>🔐 WebTimer Login</h2>
+  <input id="email" placeholder="Your email" type="email" />
+  <br />
+  <button id="login">Login</button>
+  <button id="signup">Sign Up</button>
+  <p id="status" style="color: red; height: 20px;"></p>
+
+  <script type="module">
+    import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js/+esm';
+
+    const supabase = createClient(
+      import.meta.env.VITE_SUPABASE_URL,
+      import.meta.env.VITE_SUPABASE_KEY
+    );
+
+    document.getElementById('login').onclick = async () => {
+      const email = document.getElementById('email').value;
+      if (!email) return alert('Please enter email');
+
+      const { error } = await supabase.auth.signInWithPassword({
+        email,
+        password: 'demo123'
+      });
+
+      if (error) {
+        document.getElementById('status').textContent = error.message;
+      } else {
+        window.location.href = '/';
+      }
+    };
+
+    document.getElementById('signup').onclick = async () => {
+      const email = document.getElementById('email').value;
+      if (!email) return alert('Please enter email');
+
+      const { error } = await supabase.auth.signUp({
+        email,
+        password: 'demo123'
+      });
+
+      if (error) {
+        document.getElementById('status').textContent = error.message;
+      } else {
+        document.getElementById('status').textContent = '✅ Check your email!';
+      }
+    };
+  </script>
+</body>
+</html>
