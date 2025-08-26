@@ -8,8 +8,15 @@
   ],
   "routes": [
     {
+      "src": "/(.*\\.(js|css|png|jpg|jpeg|svg|ico|webp|gif|pdf|json))$",
+      "headers": {
+        "cache-control": "max-age=31536000"
+      },
+      "continue": true
+    },
+    {
       "src": "/(.*)",
-      "dest": "/index.html"
+      "dest": "/dist/index.html"
     }
   ]
 }
