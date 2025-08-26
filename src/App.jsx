@@ -126,7 +126,7 @@ function App() {
         <p>No timers yet. Create one above!</p>
       ) : (
         timers.map((t) => {
-          const publicUrl = `https://${window.location.host}/t/${t.id}`;
+          const publicUrl = `https://webtimer-demo.vercel.app/t/${t.id}`;
           return (
             <div key={t.id} style={cardStyle}>
               <h3>{t.name}</h3>
@@ -177,5 +177,6 @@ const linkStyle = {
   color: '#0055ff',
   textDecoration: 'underline',
 };
+
 
 export default App;
